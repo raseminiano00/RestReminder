@@ -1,0 +1,8 @@
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\b\RestReminder\bin\Debug\RestReminder.exe.config
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\b\RestReminder\bin\Debug\RestReminder.exe
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\i\RestReminder\Debug\RestReminder.Form1.resources
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\i\RestReminder\Debug\RestReminder.Properties.Resources.resources
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\i\RestReminder\Debug\RestReminder.csproj.GenerateResource.cache
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\i\RestReminder\Debug\RestReminder.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\i\RestReminder\Debug\RestReminder.csproj.CopyComplete
+C:\Users\Administrator\Documents\PERSONAL\REPOSITORY\RestReminder\.vs\RestReminder\lut\0\i\RestReminder\Debug\RestReminder.exe
