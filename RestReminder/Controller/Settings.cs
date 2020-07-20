@@ -10,54 +10,90 @@ namespace RestReminder.Controller
     public class Settings
     {
         private static Settings localSetting;
-        private string path;
-        private Dictionary<string, string> iniValue;
-        public Settings(string path)
+        private Dictionary<string, string> settingsValue;
+        private List<string> sections;
+        public Settings(string[] iniValue)
         {
-            if (File.Exists(path) == false)
-                throw new Exception("File does not exists.");
-
-            parseIniFile(path);
-            this.path = path;
+            this.settingsValue = new Dictionary<string, string>();
+            this.sections = new List<string>();
+            parseIniFile(iniValue);
         }
-        public static void initializeSettings(string path)
+        public static void initializeSettings(string[] iniValue)
         {
-            localSetting = new Settings(path);
+            localSetting = new Settings(iniValue);
         }
-        private void parseIniFile(string path)
+        private void parseIniFile(string[] path)
         {
-            string[] fileValue;
-            string currentSection;
-            using (StreamReader sr = new StreamReader(path))
+            string currentSection = "";
+            string[] lines = path;
+            string key;
+            foreach (string line in lines)
             {
-                fileValue = sr.ReadToEnd().Split(
-                    new[] { Environment.NewLine },
-                    StringSplitOptions.None);
-            }   
-            //string[] lines = File.ReadAllLines(path);
+                if (IsSection(line))
+                {
+                    if (sections.Contains(removeBrackets(line)))
+                        throw new Exception("Detected duplicate section name '" + currentSection + "'");
 
-            //foreach (string line in lines)
-            //{
-            //    if (line[0] == '[' || line[line.Length-1] == ']')
-            //        if(section)
-
-            //}
+                    if (currentSection != line)
+                    {
+                        currentSection = removeBrackets(line);
+                        sections.Add(currentSection);
+                        continue;
+                    }
+                }
+                else
+                {
+                    key = getKey(line);
+                    if (IsSectionKeyExists(currentSection + key) == true)
+                        throw new Exception("Detected duplicate key at section '"+ currentSection + "'");
+                    else
+                        settingsValue.Add(currentSection + key, getValue(line));
+                }
+            }
+        }
+        private bool IsSection(string line)
+        {
+            return (line[0] == '[' || line[line.Length - 1] == ']');
+        }
+        private string getKey(string value)
+        {
+            return value.Remove(value.LastIndexOf('='), (value.Length ) - value.LastIndexOf('='));
+        }
+        private string getValue(string value)
+        {
+            return value.Substring(value.LastIndexOf('=')+1);
         }
         private string removeBrackets(string section)
         {
-            return section.Trim().Remove('[').Remove(']');
+            return section.Remove(section.Length - 1,1).Remove(0,1);
         }
         public static Settings getSetting()
+        {
+            IsInitialized();
+
+            return localSetting;
+        }
+        public string getSettings(string section,string key,string defaultValue)
         {
             if (localSetting == null)
                 throw new NullReferenceException("Settings not initialized yet");
 
-            return localSetting;
+            if (IsSectionKeyExists(section+key) == false)
+                return defaultValue;
+
+            return settingsValue[section + key];
+        }
+        private bool IsSectionKeyExists(string sectionKey)
+        {
+            return settingsValue.ContainsKey(sectionKey);
         }
 
-        public string getPath()
+        private static bool IsInitialized()
         {
-            return path;
+            if (localSetting == null)
+                throw new NullReferenceException("Settings not initialized yet");
+
+            return true;
         }
     }
 }

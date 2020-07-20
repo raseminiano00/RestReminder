@@ -48,15 +48,15 @@ namespace RestReminder
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if (File.Exists(("C:/Users/Administrator/Documents/PERSONAL/REPOSITORY/RestReminder/RestReminder/settings.ini")) == false)
-                MessageBox.Show("false");
+            //if (File.Exists(("C:/Users/Administrator/Documents/PERSONAL/REPOSITORY/RestReminder/RestReminder/settings.ini")) == false)
+            //    MessageBox.Show("false");
+
+            Settings.getSetting().getSettings("App", "literal2", "0");
 
 
 
-       
-
-            Settings.initializeSettings("C:/Users/Administrator/Documents/PERSONAL/REPOSITORY/RestReminder/RestReminder/settings.ini");
-            MessageBox.Show(Settings.getSetting().getPath()+"");
+            //Settings.initializeSettings(@"C:/Users/Administrator/Documents/PERSONAL/REPOSITORY/RestReminder/RestReminder/settings.ini");
+            //MessageBox.Show(Settings.getSetting().getSettings("App", "literal", "1"));
         }
     }
 }

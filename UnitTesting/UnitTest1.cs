@@ -17,16 +17,21 @@ namespace Tests
             Assert.Pass();
         }
         [Test]
-        public void SettingsTest1()
+        public void SettignsTestDuplicateKey()
         {
-            Settings.initializeSettings(@"C:/Users/Administrator/Documents/PERSONAL/REPOSITORY/RestReminder/RestReminder/settings.ini");
-
-            Assert.AreEqual(Settings.getSetting().getPath(), @"C:/Users/Administrator/Documents/PERSONAL/REPOSITORY/RestReminder/RestReminder/settings.ini");
+            Assert.Throws<Exception>(() => Settings.initializeSettings(new string[] { "[App]", "literal2=1", "[App]", "literal2=1" }));
         }
         [Test]
-        public void SettignsTestNull()
+        public void SettignsTestDuplicateSection()
         {
-            Assert.Throws<NullReferenceException>(() => Settings.getSetting().getPath());
+            Assert.Throws<Exception>(() => Settings.initializeSettings(new string[] { "[App]", "literal2=1", "[App]", "literal2=1" }));
         }
+        [Test]
+        public void SettingsTestFirstKeyValue()
+        {
+            Settings.initializeSettings(new string[]{ "[App]","literal2=1", "[Apps]", "literal3=1" });
+            Assert.AreEqual("1", Settings.getSetting().getSettings("App", "literal2", "0"));
+        }
+
     }
 }
